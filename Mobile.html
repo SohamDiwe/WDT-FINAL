@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Page</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #1e90ff;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      width: 250px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
+      margin: 0 0 10px;
+    }
+
+    .card-content p {
+      margin: 0 0 15px;
+      color: #666;
+    }
+
+    .card-content button {
+      background-color: #1e90ff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .card-content button:hover {
+      background-color: #0056b3;
+    }
+
+    .cart {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      width: 300px;
+      position: fixed;
+      right: 20px;
+      top: 80px;
+    }
+
+    .cart h2 {
+      margin: 0 0 10px;
+    }
+
+    .cart ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .cart ul li {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart ul li button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .cart ul li button:hover {
+      background-color: darkred;
+    }
+
+    .cart .total {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .cart a {
+      display: inline-block;
+      background-color: #1e90ff;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    .cart a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mobile Accessories</h1>
+  </header>
+
+  <div class="container" id="productList">
+    <!-- Product cards will be dynamically inserted here -->
+  </div>
+
+  <div class="cart" id="cart">
+    <h2>Your Cart</h2>
+    <ul id="cartItems"></ul>
+    <div class="total">Total: $<span id="totalPrice">0.00</span></div>
+    <a href="payment.html" id="paymentLink">Proceed to Payment</a>
+  </div>
+
+  <script>
+    const products = [
+      { id: 1, name: "Headphones", price: 15.99, img: "https://imagesm.plexussquare.in/ICARE/Images/21-07-2022/1658406898335.webp" },
+      { id: 2, name: "Wiredearphones", price: 39.99, img: "https://imagesm.plexussquare.in/ICARE/Images/21-07-2022/1658406325644.jpg"  },
+      { id: 3, name: "Charger", price: 89.99, img: "https://imagesm.plexussquare.in/ICARE/Images/04-08-2022/1659611235766.jfif" },
+      { id: 4, name: "memory card", price: 49.99, img: "https://imagesm.plexussquare.in/ICARE/Images/03-09-2022/1662191990562.jpg" },
+      { id: 5, name: "card Readers", price: 12.99, img: "https://imagesm.plexussquare.in/ICARE/Images/21-07-2022/1658414697014.jpg" }
+    ];
+
+    const cart = [];
+
+    const productList = document.getElementById('productList');
+    const cartItems = document.getElementById('cartItems');
+    const totalPrice = document.getElementById('totalPrice');
+    const paymentLink = document.getElementById('paymentLink');
+
+    function updateCart() {
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.name} - $${item.price.toFixed(2)} <button onclick="removeFromCart(${item.id})">Remove</button>`;
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+      totalPrice.textContent = total.toFixed(2);
+      paymentLink.href = `payment.html=${total.toFixed(2)}`;
+    }
+
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      cart.push(product);
+      updateCart();
+    }
+
+    function removeFromCart(productId) {
+      const index = cart.findIndex(item => item.id === productId);
+      if (index > -1) {
+        cart.splice(index, 1);
+        updateCart();
+      }
+    }
+
+    products.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${product.img}" alt="${product.name}">
+        <div class="card-content">
+          <h3>${product.name}</h3>
+          <p>$${product.price.toFixed(2)}</p>
+          <button onclick="addToCart(${product.id})">Add to Cart</button>
+        </div>
+      `;
+      productList.appendChild(card);
+    });
+  </script>
+</body>
+</html>
