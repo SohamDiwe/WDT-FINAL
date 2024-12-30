@@ -245,3 +245,12 @@ p{
     color: bisque;
     text-decoration: none;
 }
+ @media (max-width: 768px) {
+    #header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #ul {
+        flex-direction: column;
+    }
