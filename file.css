@@ -212,7 +212,10 @@ section {
   font-size: large;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
-
+#section3{
+    display: flex;
+   justify-content: center;;
+}
 
 
 #lap1 {
