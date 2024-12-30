@@ -245,12 +245,84 @@ p {
   color: bisque;
   text-decoration: none;
 }
- @media (max-width: 768px) {
-    #header {
+@media (max-width: 1024px) {
+    #ul li a {
+        font-size: 18px;
+        padding: 8px 12px;
+    }
+
+    #items2, #items3, #items4 {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
         flex-direction: column;
         text-align: center;
     }
 
     #ul {
         flex-direction: column;
-    }/*# sourceMappingURL=file.css.map */
+        align-items: center;
+    }
+
+    #ul li a {
+        font-size: 16px;
+        padding: 10px 0;
+    }
+
+    #items {
+        flex-direction: column;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    #items2, #items3, #items4 {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    #ul li a {
+        font-size: 14px;
+    }
+
+    header img {
+        height: 40px;
+    }
+
+    #items button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    #items2, #items3, #items4 {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    #ul li a {
+        font-size: 12px;
+    }
+
+    #items button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    #items2, #items3, #items4 {
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    footer p {
+        font-size: 12px;
+    }
+}
