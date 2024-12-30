@@ -188,6 +188,7 @@ footer {
   font-family: sans-serif;
   font-weight: bolder;
   height: 50px;
+ align-content: baseline;
 }
 
 #items3 {
